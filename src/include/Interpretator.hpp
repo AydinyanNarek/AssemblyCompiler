@@ -15,6 +15,7 @@
 **/
 class Interpreter
 {
+
 public:
     /**
      *   @brief Parametrized constructor of Interpreter class

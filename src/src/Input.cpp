@@ -4,7 +4,8 @@
 //  Created by Narek Aydinyan on 4/25/19.
 //  Copyright © 2019 Narek Aydinyan. All rights reserved.
 //
-#include "Input.hpp"
+#include "../include/Input.hpp"
+#include "../Utilities/include/ErrorManager/ErrorRegister.h"
 
 Input::Input(std::string_view file_name)
     : m_filename(file_name), m_openQ(false) {}
@@ -22,7 +23,7 @@ void Input::readDataFromFile(){
     m_openQ = true;
 
     if(!(m_buffer).is_open()){
-        throw("Invalied file.");
+        Errors::ErrorRegister::Throw("IncorrectFileError");
     }
     while (getline((m_buffer), line))
     {

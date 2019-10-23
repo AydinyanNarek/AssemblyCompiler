@@ -4,7 +4,18 @@
 //  Created by Narek Aydinyan on 4/25/19.
 //  Copyright © 2019 Narek Aydinyan. All rights reserved.
 //
-#include "Compiler.hpp"
+#include "../include/Compiler.hpp"
+#include "../Utilities/include/ErrorManager/ErrorRegister.h"
+
+void Compiler::registerErrors()
+{
+    Errors::ErrorRegister::registerErrors({
+        {"InvalidJumpError",            "Faild jump command."},
+        {"UnregisteredCommandError",    "Faild to make command as it is not supported."},
+        {"IncorrectFileError",          "Faild to open input file."},
+        {"UnregisteredTypeError",       "Faild to use the type as it is not supported."}
+    });
+}
 
 Compiler::Compiler() : nameInCommands(0), 
     nameInComandLable(0),
@@ -81,7 +92,7 @@ void Compiler::make_jamps(std::vector<std::unique_ptr<BaseCommand>>& program) {
 
     if (!nameInCommands.empty() || !nameInComandLable.empty())
     {
-        throw std::invalid_argument{"Invalid Jump or label"};
+        Errors::ErrorRegister::Throw("InvalidJumpError");
     }
 
     nameInCommands.clear();
@@ -112,7 +123,7 @@ std::vector<std::unique_ptr<BaseCommand>> Compiler::createCode(std::vector<std::
                 break;
             }
             default: {
-                throw("Unregistered Command.");
+                Errors::ErrorRegister::Throw("UnregisteredCommandError");
             }
         }
     }

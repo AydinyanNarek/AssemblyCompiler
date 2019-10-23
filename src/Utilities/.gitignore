@@ -1,0 +1,10 @@
+.project
+.cproject
+.settings/
+.vscode/
+.vs/
+CMakeSettings.json
+lib/
+build*/
+install*/
+

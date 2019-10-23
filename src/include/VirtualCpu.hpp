@@ -13,7 +13,7 @@
  *   @brief class VitualCPU
 **/
 class VitualCPU {
-
+    
 private:
     /**
      *   @brief Struct statuss register

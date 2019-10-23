@@ -4,15 +4,17 @@
 //  Created by Narek Aydinyan on 4/25/19.
 //  Copyright © 2019 Narek Aydinyan. All rights reserved.
 //
-#include "Interpretator.hpp"
-#include "Input.hpp"
-#include "Compiler.hpp"
+#include "../include/Interpretator.hpp"
+#include "../include/Input.hpp"
+#include "../include/Compiler.hpp"
+#include "../Utilities/include/ErrorManager/ErrorRegister.h"
 #include <memory>
 
 Interpreter::Interpreter(const std::string& file_name)
 {
     init(file_name);
     interpreter();
+    Compiler::registerErrors();
 }
 
 void Interpreter::init(const std::string& file_name)

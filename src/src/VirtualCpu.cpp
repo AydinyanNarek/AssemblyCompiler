@@ -4,11 +4,11 @@
 //  Created by Narek Aydinyan on 4/25/19.
 //  Copyright © 2019 Narek Aydinyan. All rights reserved.
 //
-#include "VirtualCpu.hpp"
+#include "../include/VirtualCpu.hpp"
 #include <cassert>
 #include <cstring>
-#include "InterpretatorUtilities.hpp"
-
+#include "../include/InterpretatorUtilities.hpp"
+#include "../Utilities/include/ErrorManager/ErrorRegister.h"
 
 bool VitualCPU::addOperationOverflow(const std::size_t l, const std::size_t r) 
 {
@@ -141,7 +141,7 @@ void VitualCPU::pushStack(const Utils::SizeOfAssemblerTypes::RegisterSize size, 
             break;
         }
         default:
-            throw("Unregistered type.");
+            Errors::ErrorRegister::Throw("UnregisteredTypeError");
     }
 }
 

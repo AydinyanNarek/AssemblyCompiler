@@ -19,7 +19,11 @@
  **/
 class Compiler
 {
-
+public:
+    /**
+     * @brief Registers all project errors
+    **/
+    static void registerErrors();    
 private:
     /**
      * @brief Enum Class Command with command set
