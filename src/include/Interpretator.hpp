@@ -13,8 +13,7 @@
 /**
 *   @brief Class Interpreter with all functionality 
 **/
-class Interpreter
-{
+class Interpreter {
 
 public:
     /**

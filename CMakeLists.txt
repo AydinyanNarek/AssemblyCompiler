@@ -103,7 +103,7 @@ set(assembly_interpreter_HEADER_FILES
 )
 
 set(UTIL
-    ${UTILITIES_SOURCE_DIR}/install/lib/libUTILITIES.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/build/Utilities/install/lib/libUTILITIES.a
 )
 
 add_executable(interpret ${UTIL} ${assembly_interpreter_SOURCE_FILES})

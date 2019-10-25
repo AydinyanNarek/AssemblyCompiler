@@ -262,8 +262,7 @@ private:
  * @brief Class CommandLabel inhereted from BaseCommand
  * Overrides the function execute()
  **/
-class CommandLabel final : public BaseCommand
-{
+class CommandLabel final : public BaseCommand {
 public:
     CommandLabel() = default;
 
@@ -276,8 +275,7 @@ public:
  * @brief Class CommandCall inhereted from JumpCommands
  * Overrides the function execute()
  **/
-class CommandCall final : public JumpCommands
-{
+class CommandCall final : public JumpCommands {
 public:
     CommandCall(std::size_t new_ip = 0) : JumpCommands{new_ip} {}
 
@@ -293,8 +291,7 @@ public:
  * @brief Class CommandRet inhereted from JumpCommands
  * Overrides the function execute()
  **/
-class CommandRet final : public JumpCommands
-{
+class CommandRet final : public JumpCommands {
 public:
     CommandRet(size_t new_ip = 0) : JumpCommands{new_ip} {};
 
@@ -309,8 +306,7 @@ public:
  * @brief Class CommandEnd inhereted from BaseCommand
  * Overrides the function execute()
  **/
-class CommandEnd final : public BaseCommand
-{
+class CommandEnd final : public BaseCommand {
 public:
     CommandEnd() = default;
 
@@ -325,8 +321,7 @@ public:
  * @brief Class CommandPush inhereted from BaseCommand
  * Overrides the function execute()
  **/
-class CommandPush final : public BaseCommand
-{
+class CommandPush final : public BaseCommand {
 public:
     CommandPush(Utils::SizeOfAssemblerTypes::RegisterSize reg_size, std::size_t reg_id) :
      m_reg_size(reg_size), m_reg_id(reg_id) {}
@@ -346,18 +341,16 @@ private:
  * @brief Class CommandPop inhereted from BaseCommand
  * Overrides the function execute()
  **/
-class CommandPop final : public BaseCommand
-{
+class CommandPop final : public BaseCommand {
 public:
     CommandPop(Utils::SizeOfAssemblerTypes::RegisterSize reg_size, std::size_t reg_id) :
         m_reg_size(reg_size), m_reg_id(reg_id) {}
-
+    
     ~CommandPop() {}
 
     void execute(VitualCPU& cpu) const override {
         cpu.setRegValue(m_reg_id, cpu.popStack(m_reg_size));
     }
-
 private:
     const Utils::SizeOfAssemblerTypes::RegisterSize m_reg_size;
     const std::size_t m_reg_id;

@@ -28,7 +28,8 @@
 /**
 *   @brief Namespace Utils with helper functions 
 **/
-namespace Utils {
+namespace Utils 
+{
     /**
     *   @brief Wrapp pointer to c++ smart pointer with custom deleter
     **/
@@ -41,8 +42,7 @@ namespace Utils {
     /**
     *   @brief struct SizeOfAssemblerTypes
     **/
-    struct SizeOfAssemblerTypes
-    {
+    struct SizeOfAssemblerTypes {
         enum RegisterSize
         {
             B,
@@ -51,15 +51,14 @@ namespace Utils {
             DW
         };
 
-        static inline const std::unordered_map<std::string, SizeOfAssemblerTypes::RegisterSize> regSize{
+        static inline const std::unordered_map<std::string, SizeOfAssemblerTypes::RegisterSize> regSize {
             {"B", RegisterSize::B},
             {"W", RegisterSize::W},
             {"DB", RegisterSize::DB},
             {"DW", RegisterSize::DW},
         };
 
-        static SizeOfAssemblerTypes::RegisterSize get_reg_size(const std::string &name)
-        {
+        static SizeOfAssemblerTypes::RegisterSize get_reg_size(const std::string &name) {
             return regSize.at(name);
         }
     };
@@ -68,8 +67,7 @@ namespace Utils {
         constexpr int max_int = 2147483647; // Maximum value of integer
         constexpr int min_int = -2147483648;// Minimum value of integer
 
-        Static_Unused std::size_t toSTDSize_t(const std::string num)
-        {
+        Static_Unused std::size_t toSTDSize_t(const std::string num) {
             if (num.empty()) {
                 return 0;
             }
@@ -78,8 +76,7 @@ namespace Utils {
             return result;
         }
 
-        Static_Unused int toIntt(const std::string& num)
-        {
+        Static_Unused int toIntt(const std::string& num) {
             if (num.empty()) {
                 return 0;
             }

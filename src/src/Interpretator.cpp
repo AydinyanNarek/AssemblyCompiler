@@ -10,15 +10,13 @@
 #include "../Utilities/include/ErrorManager/ErrorRegister.h"
 #include <memory>
 
-Interpreter::Interpreter(const std::string& file_name)
-{
+Interpreter::Interpreter(const std::string& file_name) {
     init(file_name);
     interpreter();
     Compiler::registerErrors();
 }
 
-void Interpreter::init(const std::string& file_name)
-{
+void Interpreter::init(const std::string& file_name) {
     Input inp (file_name);
     inp.readDataFromFile();
     auto code = inp.getData();
@@ -26,8 +24,7 @@ void Interpreter::init(const std::string& file_name)
     m_instruction_table = compile->createCode(code);
 }
 
-void Interpreter::interpreter()
-{
+void Interpreter::interpreter() {
     while (m_cpu.m_ip < m_instruction_table.size())
     {
         const auto current_ip = m_cpu.m_ip;

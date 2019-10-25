@@ -7,8 +7,7 @@
 #include "../include/Compiler.hpp"
 #include "../Utilities/include/ErrorManager/ErrorRegister.h"
 
-void Compiler::registerErrors()
-{
+void Compiler::registerErrors() {
     Errors::ErrorRegister::registerErrors({
         {"InvalidJumpError",            "Faild jump command."},
         {"UnregisteredCommandError",    "Faild to make command as it is not supported."},
@@ -128,7 +127,5 @@ std::vector<std::unique_ptr<BaseCommand>> Compiler::createCode(std::vector<std::
         }
     }
     make_jamps(temp);
-
     return temp;
-
 }

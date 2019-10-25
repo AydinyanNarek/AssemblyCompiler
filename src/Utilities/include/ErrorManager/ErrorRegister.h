@@ -21,8 +21,7 @@ namespace Errors
      * ErrorRegister class contains unorderd_map as static member for registering and throwing exeptions.
      * This class is agregation type and for not allowing to create object of this class all constructors was deleted.
 	 **/
-    class ErrorRegister
-    {
+    class ErrorRegister {
     private:
         /// For registering error message
         ///The form is {error name, error description}
@@ -88,8 +87,7 @@ namespace Errors
     };
 
     template <typename T, typename... T1>
-    void ErrorRegister::Throw(T errorName, [[maybe_unused]] T1 &&... args)
-    {
+    void ErrorRegister::Throw(T errorName, [[maybe_unused]] T1 &&... args) {
         constexpr auto count = sizeof...(args);
         std::string tempString = "";
         if (count > 1)

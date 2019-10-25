@@ -16,8 +16,7 @@
 /**
 *   @brief Class Input with all functionality 
 **/
-class Input
-{
+class Input {
   public:
     /**
      *   @brief Parametrized constructor of Input class

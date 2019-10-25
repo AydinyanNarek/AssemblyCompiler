@@ -10,13 +10,13 @@
 Input::Input(std::string_view file_name)
     : m_filename(file_name), m_openQ(false) {}
 
-Input::~Input(){
+Input::~Input() {
     if (m_openQ) {
         (m_buffer).close();
     }
 }
 
-void Input::readDataFromFile(){
+void Input::readDataFromFile() {
     (m_buffer).seekg(0);
     std::string line;
     (m_buffer).open(m_filename, std::fstream::in);

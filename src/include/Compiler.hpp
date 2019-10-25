@@ -17,8 +17,7 @@
 /**
  * @brief Class Compiler with all functionality
  **/
-class Compiler
-{
+class Compiler {
 public:
     /**
      * @brief Registers all project errors
@@ -28,8 +27,7 @@ private:
     /**
      * @brief Enum Class Command with command set
      **/
-    enum class Command
-    {
+    enum class Command {
         assign,
         print,
         cmp,
