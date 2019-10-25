@@ -52,7 +52,6 @@ private:
 
 private:
     std::unordered_map<std::string, std::forward_list<JumpCommands*>> nameInCommands;
-
     std::unordered_map<CommandLabel*, std::string> nameInComandLable;
 	const std::unordered_map<std::string, Command> s_string_enum_map;
     std::unordered_map<std::string, Command> assemblerCommandsMap;

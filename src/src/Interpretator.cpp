@@ -7,7 +7,6 @@
 #include "../include/Interpretator.hpp"
 #include "../include/Input.hpp"
 #include "../include/Compiler.hpp"
-#include "../Utilities/include/ErrorManager/ErrorRegister.h"
 #include <memory>
 
 Interpreter::Interpreter(const std::string& file_name) {
@@ -25,8 +24,7 @@ void Interpreter::init(const std::string& file_name) {
 }
 
 void Interpreter::interpreter() {
-    while (m_cpu.m_ip < m_instruction_table.size())
-    {
+    while (m_cpu.m_ip < m_instruction_table.size()) {
         const auto current_ip = m_cpu.m_ip;
         ++m_cpu.m_ip;
         m_instruction_table[current_ip]->execute(m_cpu);

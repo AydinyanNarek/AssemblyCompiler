@@ -3,7 +3,6 @@
 #include "../include/Compiler.hpp"
 
 int main() try {
-    Compiler::registerErrors();
     std::string file = "/home/nareka/Desktop/GITHUBProjects/AssemblyCompiler/tests/test.txt";
     Interpreter input(file);
     std::cout << "End..." << std::endl;

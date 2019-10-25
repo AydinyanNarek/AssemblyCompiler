@@ -38,7 +38,7 @@ Compiler::Compiler() : nameInCommands(0),
         {"POP", Command::pop},
         {"DIV", Command::div},
         {"MOV", Command::mov},
-        {"CALL", Command::call}}) {};
+        {"CALL", Command::call}}) {}
 
 std::vector<std::string> Compiler::split(const std::string& str) {
 
@@ -59,7 +59,7 @@ std::unique_ptr<BaseCommand> Compiler::assigneCommandMake(const std::string &id,
 }
 
 void Compiler::make_jamps(std::vector<std::unique_ptr<BaseCommand>>& program) {
-    for (auto i = 0; i < program.size(); ++i) {
+    for (uint64_t i = 0; i < program.size(); ++i) {
         auto label_to_name_pair = nameInComandLable.find(static_cast<CommandLabel*>(program[i].get()));
 
         if (label_to_name_pair == nameInComandLable.end()) {
@@ -97,7 +97,7 @@ std::vector<std::unique_ptr<BaseCommand>> Compiler::createCode(std::vector<std::
     std::vector<std::unique_ptr<BaseCommand>> temp;
     std::unique_ptr<BaseCommand> instruction = nullptr;
 
-    for (int i = 0; i < vec.size(); ++i){
+    for (uint64_t i = 0; i < vec.size(); ++i){
         auto tokens = split(vec[i]);
         switch (tokens.size()) {
             case 3: {

@@ -39,7 +39,7 @@ public:
 private:
     std::size_t max_stack_size{255u};
     std::vector<int> cpuRegisteres;
-    std::unique_ptr<typename std::remove_pointer<char*const>::type, void (*)(char*const)> m_call_stack{Utils::sPointerWrapper(new char[max_stack_size])};
+    std::unique_ptr<typename std::remove_pointer<char* const>::type, void (*)(char* const)> m_call_stack{Utils::sPointerWrapper(new char[max_stack_size])};
     char *m_stack_pointer{m_call_stack.get() + max_stack_size};
 
 public:
