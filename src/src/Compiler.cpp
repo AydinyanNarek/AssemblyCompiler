@@ -97,7 +97,7 @@ std::vector<std::unique_ptr<BaseCommand>> Compiler::createCode(std::vector<std::
     std::vector<std::unique_ptr<BaseCommand>> temp;
     std::unique_ptr<BaseCommand> instruction = nullptr;
 
-    for (uint64_t i = 0; i < vec.size(); ++i){
+    for (uint64_t i = 0; i < vec.size(); ++i) {
         auto tokens = split(vec[i]);
         switch (tokens.size()) {
             case 3: {
