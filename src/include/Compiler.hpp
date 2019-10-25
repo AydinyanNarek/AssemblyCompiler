@@ -13,7 +13,7 @@
 #include <string>
 #include <memory>
 #include <forward_list>
-
+#include "../Utilities/include/ErrorManager/ErrorRegister.h"
 /**
  * @brief Class Compiler with all functionality
  **/
@@ -219,7 +219,7 @@ template <class... TArgs>
                 return jumpCommandMake<CommandCall>(args...);
             }
             default: {
-                throw("Unregistered Command.");
+               Errors::ErrorRegister::Throw("UnregisteredCommandError");
             }
         }
         return {};

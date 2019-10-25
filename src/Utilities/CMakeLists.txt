@@ -53,7 +53,7 @@ if(NOT TARGET UTILITIES)
 	    POSITION_INDEPENDENT_CODE YES
 	)
 
-	# Sets rpath for a target. If second argument is false then "Wolfram-default" rpath is set:
+	# Sets rpath for a target.
 	# - $ORIGIN on Linux
 	# - @loader_path on Mac
 	# On Windows rpath does not make sense.
@@ -165,7 +165,6 @@ if(NOT TARGET UTILITIES)
 
 	#Register package in user's package registry
 	export(PACKAGE UTILITIES)
-
 
 endif() #end IF NOT TARGET UTILITIES
 

@@ -5,7 +5,6 @@
 //  Copyright © 2019 Narek Aydinyan. All rights reserved.
 //
 #include "../include/Compiler.hpp"
-#include "../Utilities/include/ErrorManager/ErrorRegister.h"
 
 void Compiler::registerErrors() {
     Errors::ErrorRegister::registerErrors({
@@ -60,8 +59,7 @@ std::unique_ptr<BaseCommand> Compiler::assigneCommandMake(const std::string &id,
 }
 
 void Compiler::make_jamps(std::vector<std::unique_ptr<BaseCommand>>& program) {
-    for (auto i = 0; i < program.size(); ++i)
-    {
+    for (auto i = 0; i < program.size(); ++i) {
         auto label_to_name_pair = nameInComandLable.find(static_cast<CommandLabel*>(program[i].get()));
 
         if (label_to_name_pair == nameInComandLable.end()) {
@@ -73,24 +71,21 @@ void Compiler::make_jamps(std::vector<std::unique_ptr<BaseCommand>>& program) {
 
         auto name_to_jumps_pair = nameInCommands.find(name);
 
-        if (name_to_jumps_pair == nameInCommands.end())
-        {
+        if (name_to_jumps_pair == nameInCommands.end()) {
             continue;
         }
 
         auto [n, jumps] = *name_to_jumps_pair;
        // auto jumps = name_to_jumps_pair->second;
 
-        for (auto ji : jumps)
-        {
+        for (auto ji : jumps) {
             ji->set_ip(i);
         }
 
         nameInCommands.erase(name);
     }
 
-    if (!nameInCommands.empty() || !nameInComandLable.empty())
-    {
+    if (!nameInCommands.empty() || !nameInComandLable.empty()) {
         Errors::ErrorRegister::Throw("InvalidJumpError");
     }
 
@@ -102,10 +97,9 @@ std::vector<std::unique_ptr<BaseCommand>> Compiler::createCode(std::vector<std::
     std::vector<std::unique_ptr<BaseCommand>> temp;
     std::unique_ptr<BaseCommand> instruction = nullptr;
 
-    for (int  i = 0; i < vec.size(); ++i){
+    for (int i = 0; i < vec.size(); ++i){
         auto tokens = split(vec[i]);
-        switch (tokens.size())
-        {
+        switch (tokens.size()) {
             case 3: {
                 instruction = get_instruction(tokens[0], tokens[1], tokens[2]);
                 temp.emplace_back(std::move(instruction));
