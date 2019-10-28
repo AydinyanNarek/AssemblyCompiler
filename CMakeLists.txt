@@ -25,6 +25,9 @@ set(CMAKE_VERBOSE_MAKEFILE OFF CACHE BOOL "Verbose")
 set(UTILITIES_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/Utilities/" CACHE PATH "Location of Utilities sources.")
 mark_as_advanced(UTILITIES_SOURCE_DIR)
 
+set(COMPILER_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/" CACHE PATH "Location of Utilities sources.")
+
+
 #guard to prevent this file from running twice
 if(NOT TARGET AssemblerInterpretator)
 
@@ -32,7 +35,8 @@ if(NOT TARGET AssemblerInterpretator)
 	#============== DEPENDENCIES =================
     #=============================================
     
-    set(UTILITIES_INSTALL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Utilities" CACHE PATH "Location of Utilities installation.")
+    set(UTILITIES_INSTALL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/build/Utilities" CACHE PATH "Location of Utilities installation.")
+    set(COMPILER_INSTALL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/build/Compiler" CACHE PATH "Location of Compiler installation.")
 
 	# If Utilities is not installed on the system, try building from sources
     if(NOT EXISTS "${UTILITIES_INSTALL_DIR}")
@@ -74,41 +78,79 @@ if(NOT TARGET AssemblerInterpretator)
 			COMMAND ${CMAKE_COMMAND} --build "${UTILITIES_BUILD_DIR}" --config ${CMAKE_BUILD_TYPE} --target install
 		)
     endif ()
+
+    
+    if(NOT EXISTS "${COMPILER_INSTALL_DIR}")
+    
+        if(NOT EXISTS "${COMPILER_SOURCE_DIR}")
+            # Here we could also checkout the appropriate version of COMPILER from Stash
+            message(FATAL_ERROR "A path to COMPILER installation or COMPILER sources must be provided.")
+        endif()
+
+        message(STATUS "Building COMPILER from sources.")
+
+        # Choose build directory for COMPILER.
+		set(COMPILER_BUILD_DIR "${CMAKE_BINARY_DIR}/Compiler/build")
+        file(MAKE_DIRECTORY "${COMPILER_BUILD_DIR}")
+
+        # Install COMPILER_BUILD_DIR in the build tree
+        set(COMPILER_INSTALL_DIR "${CMAKE_BINARY_DIR}/Compiler/install")
+        
+		# Configure COMPILER_BUILD_DIR
+		set(COMPILER_CMAKE_OPTIONS
+			"-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
+			"-DCMAKE_INSTALL_PREFIX=${COMPILER_INSTALL_DIR}"
+            )
+            
+        list(APPEND COMPILER_CMAKE_OPTIONS -G ${CMAKE_GENERATOR})
+        if(CMAKE_GENERATOR_TOOLSET)
+            list(APPEND COMPILER_CMAKE_OPTIONS -T ${CMAKE_GENERATOR_TOOLSET})
+        endif()
+        if(CMAKE_GENERATOR_PLATFORM)
+            list(APPEND COMPILER_CMAKE_OPTIONS -A ${CMAKE_GENERATOR_PLATFORM})
+        endif()
+
+        execute_process(
+            COMMAND ${CMAKE_COMMAND} ${COMPILER_CMAKE_OPTIONS} "${COMPILER_SOURCE_DIR}"
+            WORKING_DIRECTORY "${COMPILER_BUILD_DIR}"
+        )
+        # Build and install COMPILER
+		execute_process(
+			COMMAND ${CMAKE_COMMAND} --build "${COMPILER_BUILD_DIR}" --config ${CMAKE_BUILD_TYPE} --target install
+		)
+    endif ()
 endif()
 
-# Add cmake scripts distributed with UTILITIES to cmake prefix path
+# Add cmake scripts distributed with COMPILER to cmake prefix path
 set(CMAKE_PREFIX_PATH "${UTILITIES_INSTALL_DIR}/cmake")
 
-#find_package(UTILITIES)
+# Add cmake scripts distributed with COMPILER to cmake prefix path
+set(CMAKE_PREFIX_PATH "${COMPILER_INSTALL_DIR}/cmake")
 
 # define source files
 set(interpreter_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 set(assembly_interpreter_SOURCE_FILES
-    ${interpreter_SOURCE_DIR}/src/main.cpp 
-    ${interpreter_SOURCE_DIR}/src/VirtualCpu.cpp
-    ${interpreter_SOURCE_DIR}/src/Interpretator.cpp
-    ${interpreter_SOURCE_DIR}/src/Input.cpp
-    ${interpreter_SOURCE_DIR}/src/Compiler.cpp
+    ${interpreter_SOURCE_DIR}/src/interpretator/main.cpp 
+    ${interpreter_SOURCE_DIR}/src/interpretator/Interpretator.cpp
 )
 
 set(assembly_interpreter_HEADER_FILES 
-    ${interpreter_SOURCE_DIR}/include/Input.hpp
-    ${interpreter_SOURCE_DIR}/include/Compiler.hpp
-    ${interpreter_SOURCE_DIR}/include/Comands.hpp
-    ${interpreter_SOURCE_DIR}/include/BaseCommands.hpp
-    ${interpreter_SOURCE_DIR}/include/Iterpretator.hpp
-    ${interpreter_SOURCE_DIR}/include/IterpretatorUtilities.hpp
-    ${interpreter_SOURCE_DIR}/include/VirtualCpu.hpp
+    ${interpreter_SOURCE_DIR}/include/interpretator/Iterpretator.hpp
 )
 
 set(UTIL
     ${CMAKE_CURRENT_SOURCE_DIR}/build/Utilities/install/lib/libUTILITIES.a
 )
 
-add_executable(interpret ${UTIL} ${assembly_interpreter_SOURCE_FILES})
+set(COMP
+    ${CMAKE_CURRENT_SOURCE_DIR}/build/Compiler/install/lib/libCOMPILER.a
+)
+
+add_executable(g+++ ${COMP} ${UTIL} ${assembly_interpreter_SOURCE_FILES})
 
 set_source_files_properties(
+  ${COMP}
   ${UTIL}
   PROPERTIES
   EXTERNAL_OBJECT true
@@ -116,7 +158,7 @@ set_source_files_properties(
 )
 
 #compilation options
-set_target_properties(interpret
+set_target_properties(g+++
     PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED YES
@@ -127,7 +169,7 @@ set_target_properties(interpret
     RUNTIME_OUTPUT_DIRECTORY "${interpreter_SOURCE_DIR}/../bin"
 )
 
-target_compile_options(interpret
+target_compile_options(g+++
     PRIVATE "-Wall"
     PRIVATE "-Wextra"
     PRIVATE "-Wfloat-equal"

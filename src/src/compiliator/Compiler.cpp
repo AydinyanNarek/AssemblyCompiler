@@ -4,16 +4,7 @@
 //  Created by Narek Aydinyan on 4/25/19.
 //  Copyright © 2019 Narek Aydinyan. All rights reserved.
 //
-#include "../include/Compiler.hpp"
-
-void Compiler::registerErrors() {
-    Errors::ErrorRegister::registerErrors({
-        {"InvalidJumpError",            "Faild jump command."},
-        {"UnregisteredCommandError",    "Faild to make command as it is not supported."},
-        {"IncorrectFileError",          "Faild to open input file."},
-        {"UnregisteredTypeError",       "Faild to use the type as it is not supported."}
-    });
-}
+#include "../../include/compiliator/Compiler.hpp"
 
 Compiler::Compiler() : nameInCommands(0), 
     nameInComandLable(0),

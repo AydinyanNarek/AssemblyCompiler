@@ -4,11 +4,11 @@
 //  Created by Narek Aydinyan on 4/25/19.
 //  Copyright © 2019 Narek Aydinyan. All rights reserved.
 //
-#include "../include/VirtualCpu.hpp"
+#include "../../include/compiliator/VirtualCpu.hpp"
 #include <cassert>
 #include <cstring>
-#include "../include/InterpretatorUtilities.hpp"
-#include "../Utilities/include/ErrorManager/ErrorRegister.h"
+#include "../../include/compiliator/CompilerUtilities.hpp"
+#include "../../Utilities/include/ErrorManager/ErrorRegister.h"
 
 bool VitualCPU::addOperationOverflow(const std::size_t l, const std::size_t r) {
     if (cpuRegisteres[r] > 0 && cpuRegisteres[l] > Utils::max_int - cpuRegisteres[r]){
@@ -157,7 +157,7 @@ int64_t VitualCPU::popStack(const Utils::SizeOfAssemblerTypes::RegisterSize size
             return tmp;
         }
         default: {
-            assert(false);
+            Errors::ErrorRegister::Throw("UnregisteredTypeError");
         }
     }
 }

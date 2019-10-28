@@ -132,39 +132,5 @@ if(NOT TARGET UTILITIES)
 		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 	)
 
-	install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-	#Export the targets to a script
-	install(EXPORT UTILITIES-targets
-		FILE
-			UtilitiesTargets.cmake
-		NAMESPACE
-			UTILITIES::
-		DESTINATION
-			${INSTALL_CONFIGDIR}
-	)
-
-	#Create a ConfigVersion.cmake file
-	include(CMakePackageConfigHelpers)
-	write_basic_package_version_file(
-		${CMAKE_CURRENT_BINARY_DIR}/UtilitiesConfigVersion.cmake
-		VERSION ${PROJECT_VERSION}
-		COMPATIBILITY AnyNewerVersion
-	)
-
-	#Install the config, configversion and custom find modules
-	install(FILES
-		${CMAKE_CURRENT_BINARY_DIR}/UtilitiesConfigVersion.cmake
-		DESTINATION ${INSTALL_CONFIGDIR}
-	)
-
-	export(EXPORT UTILITIES-targets
-		FILE ${CMAKE_CURRENT_BINARY_DIR}/UtilitiesTargets.cmake
-		NAMESPACE UTILITIES::
-	)
-
-	#Register package in user's package registry
-	export(PACKAGE UTILITIES)
-
 endif() #end IF NOT TARGET UTILITIES
 

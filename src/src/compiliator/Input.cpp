@@ -4,8 +4,8 @@
 //  Created by Narek Aydinyan on 4/25/19.
 //  Copyright © 2019 Narek Aydinyan. All rights reserved.
 //
-#include "../include/Input.hpp"
-#include "../Utilities/include/ErrorManager/ErrorRegister.h"
+#include "../../include/compiliator/Input.hpp"
+#include "../../Utilities/include/ErrorManager/ErrorRegister.h"
 
 Input::Input(std::string_view file_name)
     : m_filename(file_name), m_openQ(false) {}

@@ -6,14 +6,19 @@
 //
 #pragma once
 #include <vector>
-#include "BaseCommands.hpp"
-#include "Input.hpp"
-#include "VirtualCpu.hpp"
+#include "../compiliator/BaseCommands.hpp"
+#include "../compiliator/Input.hpp"
+#include "../compiliator/VirtualCpu.hpp"
 
 /**
 *   @brief Class Interpreter with all functionality 
 **/
 class Interpreter {
+public:
+    /**
+     * @brief Registers all project errors
+    **/
+    static void registerErrors();    
 
 public:
     /**

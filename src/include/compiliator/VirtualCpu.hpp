@@ -6,7 +6,7 @@
 //
 #ifndef __VIRTUALCPU__
 #define __VIRTUALCPU__
-#include "InterpretatorUtilities.hpp"
+#include "CompilerUtilities.hpp"
 #include <cstring>
 
 /**

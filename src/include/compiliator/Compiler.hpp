@@ -8,21 +8,16 @@
 #define __COMPILER__
 
 #include "BaseCommands.hpp"
-#include "Comands.hpp"
-#include "InterpretatorUtilities.hpp"
+#include "Commands.hpp"
+#include "CompilerUtilities.hpp"
 #include <string>
 #include <memory>
 #include <forward_list>
-#include "../Utilities/include/ErrorManager/ErrorRegister.h"
+#include "../../Utilities/include/ErrorManager/ErrorRegister.h"
 /**
  * @brief Class Compiler with all functionality
  **/
 class Compiler {
-public:
-    /**
-     * @brief Registers all project errors
-    **/
-    static void registerErrors();    
 private:
     /**
      * @brief Enum Class Command with command set

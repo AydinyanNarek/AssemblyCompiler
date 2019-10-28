@@ -7,7 +7,7 @@
 #pragma once
 #include "BaseCommands.hpp"
 #include <iostream>
-#include "InterpretatorUtilities.hpp"
+#include "CompilerUtilities.hpp"
 
 
 /**
